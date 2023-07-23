@@ -5,7 +5,7 @@ const getConsulta = async(req,res) =>{
         const {placa} = req.params;
         const connection = await getConnection();
         const result = await connection.query("call sp_consultar(?);",[placa]);
-        res.json(result);
+        res.json(result[0]);
     } catch (error) {
         console.log(error);
         res.send(error);
