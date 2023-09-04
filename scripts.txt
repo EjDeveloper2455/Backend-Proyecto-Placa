@@ -1,1 +1,6 @@
  npm i @babel/cli @babel/core @babel/node @babel/preset-env morgan nodemon -D
+
+npm install bcryptjs express promise-mysql jsonwebtoken dotenv multer
+npm install firebase-admin
+
+pm2 start npm --name "ipScan_api" -- run dev
