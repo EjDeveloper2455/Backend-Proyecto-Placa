@@ -1,22 +1,22 @@
 /*Crear procedimiento almacenado para consultar la placa del vehiculo*/
 
-drop PROCEDURE consutar_placa;
+drop PROCEDURE sp_consutar_placa;
 
 DELIMITER //
 
-CREATE PROCEDURE consutar_placa(IN placa varchar(7))
+CREATE PROCEDURE sp_consutar_placa(IN placa varchar(7))
 BEGIN
   Select v.vehiculo_placa as placa, ma.marca_nombre as marca, mo.modelo_descripcion as modelo,
-  v.vehiculo_color as color, v.vehiculo_motor as motor, v.vehiculo_vin,fi.financiera_nombre as nombre, 
-  pre.prestamo_id as no_prestamo, cli.cliente_dni as dni,cli.cliente_nombre as nombre, 
-  pre.prestamo_estado as estado, pre.prestamo_monto_adeudado as monto, consultar_mora(pre.prestamo_id) as mora
+  v.vehiculo_color as color, v.vehiculo_motor as motor, v.vehiculo_vin as vin,fi.financiera_nombre as financiera, 
+  pre.prestamo_id as no_prestamo, cli.cliente_dni as dni,cli.cliente_nombre as cliente, 
+  pre.prestamo_estado as estado, pre.prestamo_monto_adeudado as montoadeudado, consultar_mora(pre.prestamo_id) as dias_mora
   from tbl_prestamo pre 
   inner join tbl_vehiculo v on v.vehiculo_vin = pre.vehiculo_vin 
   inner join tbl_modelo mo on v.modelo_id = mo.modelo_id
   inner join tbl_marca ma on mo.marca_id = ma.marca_id
   inner join tbl_financiera fi on pre.financiera_rtn = fi.financiera_rtn
   inner join tbl_cliente cli on pre.cliente_dni = cli.cliente_dni
-  where v.vehiculo_placa = 'MAT1234';
+  where v.vehiculo_placa = placa;
 END;
 //
 DELIMITER ;
