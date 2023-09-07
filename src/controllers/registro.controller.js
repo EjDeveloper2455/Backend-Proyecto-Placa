@@ -5,7 +5,7 @@ const getRegistroByUser = async(req,res) =>{
         const {user} = req.params;
         const connection = await getConnection();
         const result = await connection.query("SELECT placa, registro_status as status, "
-        +"DATE_FORMAT(registro_date_create, '%Y-%m-%d %h:%i:%s %p') as fecha "+
+        +"DATE_FORMAT(registro_date_create, '%d-%m-%Y %h:%i:%s %p') as fecha "+
         "FROM tbl_registro where usuario_id = ?;",[user]);
         console.log(result);
         res.json(result[0]);

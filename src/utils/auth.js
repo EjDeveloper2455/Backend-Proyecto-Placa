@@ -57,8 +57,7 @@ const signUp = async (req,res) =>{
             const id = result.insertId;
             const payload = {id: id,email: email,nombre: nombre,role: rol};
             
-            const token = jwt.sign(payload, SECRET_KEY);
-            res.json({id,email,nombre,rol,token});
+            res.json({id,email,nombre,rol});
         }
     }catch(err){
         console.log(err);
@@ -85,10 +84,8 @@ const login = async(req, res) =>{
         }else{
             const user = {"id":result[0].id,"Email": result[0].email,"Rol": result[0].rol,
             "Nombre": result[0].nombre};
-            const payload = {user};
-            console.log(payload);
-            const token = jwt.sign(user, SECRET_KEY);
-            res.json({user, token});
+            //const token = jwt.sign(user, SECRET_KEY);
+            res.json({user});
         }
     }catch(err){
         console.log(err);
