@@ -87,7 +87,7 @@ const login = async(req, res) =>{
             "Nombre": result[0].nombre};
             const payload = {user};
             console.log(payload);
-            const token = jwt.sign(payload, SECRET_KEY);
+            const token = jwt.sign(user, SECRET_KEY);
             res.json({user, token});
         }
     }catch(err){
