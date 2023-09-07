@@ -78,7 +78,7 @@ const login = async(req, res) =>{
             res.status(401).send('Credenciales incorrecta');
             return;
         }
-        console.log(result[0]);
+        
         const isMatch = await bcrypt.compare(password, result[0].pass);
         if(!isMatch){
             res.status(401).send('Credenciales incorrecta');
@@ -86,7 +86,7 @@ const login = async(req, res) =>{
             const user = {"id":result[0].id,"Email": result[0].email,"Rol": result[0].rol,
             "Nombre": result[0].nombre};
             const payload = {user};
-            
+            console.log(payload);
             const token = jwt.sign(payload, SECRET_KEY);
             res.json({user, token});
         }
