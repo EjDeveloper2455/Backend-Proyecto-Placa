@@ -8,7 +8,7 @@ const getRegistroByUser = async(req,res) =>{
         +"DATE_FORMAT(registro_date_create, '%d-%m-%Y %h:%i:%s %p') as fecha "+
         "FROM tbl_registro where usuario_id = ?;",[user]);
         console.log(result);
-        res.json(result[0]);
+        res.json(result);
     } catch (error) {
         console.log(error);
         res.send(error);
