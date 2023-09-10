@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const SECRET_KEY = 'APIPROYECTOPLACAGENERICKEY';
 
 //Middelware para verificar la autenticacion del token
-exports.authenticate = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
     //Se verifica que se llegue un token de autenticacion
     const authHeader = req.headers.authorization;
     if(!authHeader){
@@ -82,10 +82,10 @@ const login = async(req, res) =>{
         if(!isMatch){
             res.status(401).send('Credenciales incorrecta');
         }else{
-            const user = {"id":result[0].id,"Email": result[0].email,"Rol": result[0].rol,
-            "Nombre": result[0].nombre};
+            const user = {"id":result[0].id,"email": result[0].email,"rol": result[0].rol,
+            "nombre": result[0].nombre,"estado":result[0].email};
             const token = jwt.sign(user, SECRET_KEY);
-            console.log(token);
+            console.log(user);
             res.json({user,token});
         }
     }catch(err){
@@ -95,5 +95,5 @@ const login = async(req, res) =>{
 }
 
 export const methods = {
-    signUp,login
+    signUp,login,authenticate
 }
