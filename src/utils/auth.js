@@ -83,7 +83,7 @@ const login = async(req, res) =>{
             res.status(401).send('Credenciales incorrecta');
         }else{
             const user = {"id":result[0].id,"email": result[0].email,"rol": result[0].rol,
-            "nombre": result[0].nombre,"estado":result[0].email};
+            "nombre": result[0].nombre,"estado":result[0].estado};
             const token = jwt.sign(user, SECRET_KEY);
             console.log(user);
             res.json({user,token});
