@@ -85,6 +85,7 @@ const login = async(req, res) =>{
             const user = {"id":result[0].id,"Email": result[0].email,"Rol": result[0].rol,
             "Nombre": result[0].nombre};
             const token = jwt.sign(user, SECRET_KEY);
+            console.log(token);
             res.json({user,token});
         }
     }catch(err){
