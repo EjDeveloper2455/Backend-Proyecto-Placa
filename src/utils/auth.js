@@ -68,7 +68,7 @@ const signUp = async (req,res) =>{
 
 const login = async(req, res) =>{
     try{
-        const {email,password} = req.body;
+        var {email,password} = req.body;
         email = email.trim();
         const connection = await getConnection();
         const result = await connection.query("Select usuario_id as id, usuario_nombre_completo as nombre, "+
