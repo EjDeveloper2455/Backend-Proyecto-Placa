@@ -4,6 +4,7 @@ import vehiculoRoutes from './routes/vehiculo.routes';
 import consultarRoutes from './routes/consultar.routes';
 import registroRoutes from './routes/registro.routes';
 import userRoutes from './routes/user.routes';
+import emailRoutes from './routes/email.routes';
 const app = express();
 
 
@@ -17,6 +18,7 @@ app.use("/api/vehiculo/",vehiculoRoutes);
 app.use("/api/consultar/",consultarRoutes);
 app.use("/api/registro/",registroRoutes);
 app.use("/api/user/",userRoutes);
+app.use("/api/email/",userRoutes);
 app.get("/api/confirm/",(req,res)=>{
     res.send("El servidor esta corriendo");
 });
