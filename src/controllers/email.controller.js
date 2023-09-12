@@ -41,10 +41,11 @@ const enviarConfirmacion = async(req,res) =>{
   const {destinatario} = req.body;
   
   var sigue = true;
+  var random = '';
 
   const connection = await getConnection();
   while(sigue){
-    const random = generarCodigo();
+    random = generarCodigo();
     const result = await connection.query("SELECT id from tbl_codigo where codigo = ?;",[random]);
     if(result.length == 0)sigue = false;
   }
