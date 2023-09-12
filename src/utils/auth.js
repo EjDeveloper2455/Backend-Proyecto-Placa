@@ -116,6 +116,7 @@ const verifyToken = async(req, res)=>{
             return;
         }
     }catch(err){
+        console.log("Error al verificar "+err);
         res.status(401).send('Token Inválido');
         return;
     }
@@ -140,6 +141,7 @@ const decodedToken = async(req, res)=>{
             res.json({user});
 
         }else{
+            console.log("Error al verificar "+err);
             res.status(401).send('No tienes permiso para realizar esta operación');
             return;
         }
