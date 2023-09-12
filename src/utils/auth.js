@@ -99,7 +99,6 @@ const verifyToken = async(req, res)=>{
         const {token} = req.params;
         //Se decodifica el token
         const user = jwt.verify(token, SECRET_KEY);
-        console.log(user);
 
         /*Se establece la conexion y consulta para verificar que el usuario 
         que se llega exista en la base de datos*/
@@ -108,7 +107,7 @@ const verifyToken = async(req, res)=>{
           "from tbl_usuario where usuario_id = ?;",[user.id]);
           console.log(userData);
 
-        if(userData[0].length>0){
+        if(userData.length>0){
             res.send('Token válido');
         }else{
             res.status(401).send('No tienes permiso para realizar esta operación');
@@ -134,10 +133,9 @@ const decodedToken = async(req, res)=>{
         const result = await connection.query("Select usuario_id as id, usuario_nombre_completo as nombre, "+
         "usuario_email as email,usuario_password as pass, usuario_rol as rol, usuario_estado as estado "+
          "from tbl_usuario where usuario_id = ?;",[user.id]);
-
-        if(result[0].length>0){
+         console.log(result);
+        if(result.length>0){
             res.json({user});
-
         }else{
             
             res.status(401).send('No tienes permiso para realizar esta operación');
