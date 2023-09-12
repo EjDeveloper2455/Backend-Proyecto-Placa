@@ -18,7 +18,7 @@ app.use("/api/vehiculo/",vehiculoRoutes);
 app.use("/api/consultar/",consultarRoutes);
 app.use("/api/registro/",registroRoutes);
 app.use("/api/user/",userRoutes);
-app.use("/api/email/",userRoutes);
+app.use("/api/email/",emailRoutes);
 app.get("/api/confirm/",(req,res)=>{
     res.send("El servidor esta corriendo");
 });
