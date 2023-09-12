@@ -22,10 +22,8 @@ const authenticate = async (req, res, next) => {
     
     try{
         //Se decodifica el token
-        const decoded = jwt.verify(token, SECRET_KEY);
+        const user = jwt.verify(token, SECRET_KEY);
         
-        const {user} = decoded;
-
         /*Se establece la conexion y consulta para verificar que el usuario 
         que se llega exista en la base de datos*/
         const connection = await getConnection();
@@ -100,9 +98,7 @@ const verifyToken = async(req, res)=>{
     try{
         const {token} = req.params;
         //Se decodifica el token
-        const decoded = jwt.verify(token, SECRET_KEY);
-        
-        const {user} = decoded;
+        const user = jwt.verify(token, SECRET_KEY);
         console.log(user);
 
         /*Se establece la conexion y consulta para verificar que el usuario 
@@ -128,9 +124,7 @@ const decodedToken = async(req, res)=>{
     try{
         const {token} = req.params;
         //Se decodifica el token
-        const decoded = jwt.verify(token, SECRET_KEY);
-        
-        const {user} = decoded;
+        const user = jwt.verify(token, SECRET_KEY);
         console.log(user);
 
         /*Se establece la conexion y consulta para verificar que el usuario 
