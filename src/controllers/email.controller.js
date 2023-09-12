@@ -7,7 +7,7 @@ const transporter = createTransport({
   service: 'Gmail',
   auth: {
     user: 'alquileresfastcar55@gmail.com', // Reemplaza con tu dirección de correo electrónico
-    pass: 'ylhtdvhqojxvrqcn' // Reemplaza con tu contraseña de correo electrónico
+    pass: 'tauyyrgicbsrhmae' // Reemplaza con tu contraseña de correo electrónico
   },tls: {
     rejectUnauthorized: false
   }
