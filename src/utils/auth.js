@@ -69,7 +69,7 @@ const signUp = async (req,res) =>{
 const login = async(req, res) =>{
     try{
         const {email,password} = req.body;
-        console.log(email,password);
+        email = email.trim();
         const connection = await getConnection();
         const result = await connection.query("Select usuario_id as id, usuario_nombre_completo as nombre, "+
         "usuario_email as email,usuario_password as pass, usuario_rol as rol, usuario_estado as estado "+
@@ -95,6 +95,61 @@ const login = async(req, res) =>{
     }
 }
 
+const verifyToken = async(req, res)=>{
+    try{
+        const {token} = req.params;
+        //Se decodifica el token
+        const decoded = jwt.verify(token, SECRET_KEY);
+        
+        const {user} = decoded;
+
+        /*Se establece la conexion y consulta para verificar que el usuario 
+        que se llega exista en la base de datos*/
+        const connection = await getConnection();
+         const userData = await connection.query("Select *"+
+          "from tbl_usuario where usuario_id = ?;",[user.id]);
+
+        if(userData[0].length>0){
+            res.send('Token válido');
+        }else{
+            res.status(401).send('No tienes permiso para realizar esta operación');
+            return;
+        }
+    }catch(err){
+        res.status(401).send('Token Inválido');
+        return;
+    }
+    
+};
+const decodedToken = async(req, res)=>{
+    try{
+        const {token} = req.params;
+        //Se decodifica el token
+        const decoded = jwt.verify(token, SECRET_KEY);
+        
+        const {user} = decoded;
+
+        /*Se establece la conexion y consulta para verificar que el usuario 
+        que se llega exista en la base de datos*/
+        const connection = await getConnection();
+        const result = await connection.query("Select usuario_id as id, usuario_nombre_completo as nombre, "+
+        "usuario_email as email,usuario_password as pass, usuario_rol as rol, usuario_estado as estado "+
+         "from tbl_usuario where usuario_id = ?;",[user.id]);
+
+        if(result[0].length>0){
+            res.json({user});
+
+        }else{
+            res.status(401).send('No tienes permiso para realizar esta operación');
+            return;
+        }
+    }catch(err){
+        res.status(401).send('Token Inválido');
+        return;
+    }
+    
+};
+
 export const methods = {
-    signUp,login,authenticate
+    signUp,login,authenticate,verifyToken,decodedToken
 }
