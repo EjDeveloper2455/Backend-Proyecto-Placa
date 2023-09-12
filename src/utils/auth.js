@@ -106,6 +106,7 @@ const verifyToken = async(req, res)=>{
         const connection = await getConnection();
          const userData = await connection.query("Select *"+
           "from tbl_usuario where usuario_id = ?;",[user.id]);
+          console.log(userData);
 
         if(userData[0].length>0){
             res.send('Token válido');
