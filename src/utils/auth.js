@@ -85,7 +85,8 @@ const login = async(req, res) =>{
         }else{
             const user = {"id":result[0].id,"email": result[0].email,"rol": result[0].rol,
             "nombre": result[0].nombre,"estado":result[0].estado};
-            const token = jwt.sign(user, SECRET_KEY);
+            const payload = user;
+            const token = jwt.sign(payload, SECRET_KEY);
             console.log(user);
             res.json({user,token});
         }
@@ -102,6 +103,7 @@ const verifyToken = async(req, res)=>{
         const decoded = jwt.verify(token, SECRET_KEY);
         
         const {user} = decoded;
+        console.log(user);
 
         /*Se establece la conexion y consulta para verificar que el usuario 
         que se llega exista en la base de datos*/
@@ -129,6 +131,7 @@ const decodedToken = async(req, res)=>{
         const decoded = jwt.verify(token, SECRET_KEY);
         
         const {user} = decoded;
+        console.log(user);
 
         /*Se establece la conexion y consulta para verificar que el usuario 
         que se llega exista en la base de datos*/
@@ -141,11 +144,12 @@ const decodedToken = async(req, res)=>{
             res.json({user});
 
         }else{
-            console.log("Error al verificar "+err);
+            
             res.status(401).send('No tienes permiso para realizar esta operación');
             return;
         }
     }catch(err){
+        console.log("Error al decodificar "+err);
         res.status(401).send('Token Inválido');
         return;
     }
