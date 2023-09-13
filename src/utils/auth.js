@@ -94,6 +94,24 @@ const login = async(req, res) =>{
     }
 }
 
+const restablecerVerificar = async(req, res) =>{
+    try{
+        var {id,password} = req.body;
+        const salt = await bcrypt.genSalt(10);
+        password = await bcrypt.hash(password, salt);
+        const connection = await getConnection();
+        const result = await connection.query("UPDATE `tbl_usuario` SET `usuario_password` = ?, `usuario_estado` = 'Verificado' WHERE (`usuario_id` = ?); ",[password,id]);
+        if(result){
+            const payload = {id: id,email: email,nombre: nombre,role: rol};
+            
+            res.json({id,email,nombre,rol});
+        }
+    }catch(err){
+        console.log(err);
+        res.status(500).send(err.message);
+    }
+}
+
 const verifyToken = async(req, res)=>{
     try{
         const {token} = req.params;
@@ -150,5 +168,5 @@ const decodedToken = async(req, res)=>{
 };
 
 export const methods = {
-    signUp,login,authenticate,verifyToken,decodedToken
+    signUp,login,authenticate,verifyToken,decodedToken,restablecerVerificar
 }

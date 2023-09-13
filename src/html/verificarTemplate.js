@@ -10,7 +10,7 @@ const getTemplate = (destinatario,codigo) => {
         .encabezado{
             width: 100%;
             height: auto;
-            background-color: rgb(32, 37, 42);
+            background-color: rgb(0, 128, 255);
             color: white;
             text-align: center;
             padding: 10px;
@@ -46,7 +46,7 @@ const getTemplate = (destinatario,codigo) => {
             
         </div>
         <div class="cuerpo">
-            <h1>Alquileres Fastcart</h1>
+            <h1>ipScam</h1>
             <h2>Verifica tu direccion de correo electrónico</h2>
             <p>Hola <b>"${destinatario}"</b>, Estás casi listo para empezar.</p>
             <p>Para completar la creación de su cuenta, solo necesitamos verificar su dirección de correo electrónico:</p>

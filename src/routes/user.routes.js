@@ -7,5 +7,6 @@ router.post("/",auth.signUp);
 router.post("/login/",auth.login);
 router.get("/verificar/:token",auth.verifyToken);
 router.get("/decodificar/:token",auth.decodedToken);
+router.put("/restablecer/",auth.restablecerVerificar);
 
 export default router;
