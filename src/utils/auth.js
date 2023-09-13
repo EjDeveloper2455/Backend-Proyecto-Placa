@@ -102,10 +102,17 @@ const restablecerVerificar = async(req, res) =>{
         const connection = await getConnection();
         const result = await connection.query("UPDATE `tbl_usuario` SET `usuario_password` = ?, `usuario_estado` = 'Verificado' WHERE (`usuario_id` = ?); ",[password,id]);
         if(result){
-            const payload = {id: id,email: email,nombre: nombre,role: rol};
+            const result = await connection.query("Select usuario_id as id, usuario_nombre_completo as nombre, "+
+        "usuario_email as email,usuario_password as pass, usuario_rol as rol, usuario_estado as estado "+
+         "from tbl_usuario where usuario_id = ?;",[id]);
+         if(result.length>0){
+            const user = {id: id,email: result[0].email,nombre: result[0].nombre,role: result[0].rol,estado: result[0].estado};
+            const payload = user;
+            const token = jwt.sign(payload, SECRET_KEY);
+            res.json({user,token});
+         }else res.status(401).send('Ha ocurrido un error en el servidor');
             
-            res.json({id,email,nombre,rol});
-        }
+        }else res.status(401).send('Ha ocurrido un error en el servidor');
     }catch(err){
         console.log(err);
         res.status(500).send(err.message);

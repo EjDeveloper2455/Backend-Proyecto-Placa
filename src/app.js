@@ -22,6 +22,9 @@ app.use("/api/email/",emailRoutes);
 app.get("/api/confirm/",(req,res)=>{
     res.send("El servidor esta corriendo");
 });
+app.get("/",(req,res)=>{
+    res.send("¿De donde se hace esta peticion?");
+});
 
 
 export default app;
