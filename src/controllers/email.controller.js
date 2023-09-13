@@ -53,7 +53,9 @@ const enviarConfirmacion = async(req,res) =>{
   const enviar = await sendEmail(destinatario,"Verificación del correo electrónico de tu cuenta de Alquileres Fastcar",
   "Su correo de verificacion es: "+random,template.getTemplate(destinatario,random));
   var respuesta = {"res":"Se envio correctamente"}
-  res.json(respuesta);
+  console.log(enviar);
+  if(enviar == "Correo enviado correctamente")res.json(respuesta);
+  else res.json(enviar);
 }
 
 const enviarEmail = async(req,res) =>{
@@ -83,7 +85,7 @@ const sendEmail = async(destinatario,titulo,mensaje,plantilla) =>{
         console.log('Error al enviar el correo:', error);
         return 'Error al enviar el correo:'+ error;
     } else {
-        return "Correo enviado correctamente "+info.response;
+        return "Correo enviado correctamente";
     }
     });
 }
